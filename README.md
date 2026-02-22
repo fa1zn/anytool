@@ -95,7 +95,7 @@ If `SUPABASE_URL` and `SUPABASE_SERVICE_KEY` are set, each request/response is s
 Create a table (e.g. in SQL Editor):
 
 ```sql
-create table if not exists tinygen_records (
+create table if not exists anytool_records (
   id uuid default gen_random_uuid() primary key,
   created_at timestamptz default now(),
   repo_url text not null,
@@ -104,7 +104,7 @@ create table if not exists tinygen_records (
 );
 
 -- Optional: enable RLS and add a policy if you use anon key
--- alter table tinygen_records enable row level security;
+-- alter table anytool_records enable row level security;
 ```
 
 ---

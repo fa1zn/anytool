@@ -1,4 +1,4 @@
-# TinyGen - minimal image for deployment
+# Anytool - minimal image for deployment
 FROM python:3.12-slim
 
 WORKDIR /app

@@ -20,7 +20,7 @@ async def store_record(
     """Store one generate-diff request/response in Supabase. No-op if client is None."""
     if client is None:
         return
-    table = "tinygen_records"
+    table = "anytool_records"
     try:
         client.table(table).insert({
             "repo_url": repo_url,

@@ -1,1 +1,1 @@
-# TinyGen application package
+# Anytool application package

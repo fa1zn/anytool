@@ -23,7 +23,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="TinyGen",
+    title="Anytool",
     description="Generate a unified diff for a public GitHub repo given a code prompt (with reflection).",
     version="0.1.0",
     lifespan=lifespan,

@@ -1,6 +1,6 @@
-# Supabase setup for TinyGen
+# Supabase setup for Anytool
 
-Follow these steps to attach Supabase so TinyGen stores each request/response.
+Follow these steps to attach Supabase so Anytool stores each request/response.
 
 ---
 
@@ -23,7 +23,7 @@ Follow these steps to attach Supabase so TinyGen stores each request/response.
 3. Paste and run this SQL:
 
 ```sql
-create table if not exists tinygen_records (
+create table if not exists anytool_records (
   id uuid default gen_random_uuid() primary key,
   created_at timestamptz default now(),
   repo_url text not null,
@@ -49,7 +49,7 @@ create table if not exists tinygen_records (
    SUPABASE_URL=https://xxxxxxxxxxxx.supabase.co
    SUPABASE_SERVICE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9....
    ```
-3. Restart the app. Every successful `/generate-diff` call will insert a row into `tinygen_records`.
+3. Restart the app. Every successful `/generate-diff` call will insert a row into `anytool_records`.
 
 **Deployed (Railway / Render / Fly.io etc.):**
 
@@ -59,5 +59,5 @@ Add the same two variables in the host’s **Environment** / **Env vars** sectio
 
 ## 4. Check that it works
 
-- In Supabase: **Table Editor** → open `tinygen_records`. After a few `/generate-diff` requests you should see new rows with `repo_url`, `prompt`, `diff`, and `created_at`.
+- In Supabase: **Table Editor** → open `anytool_records`. After a few `/generate-diff` requests you should see new rows with `repo_url`, `prompt`, `diff`, and `created_at`.
 - If the table is empty, confirm `SUPABASE_URL` and `SUPABASE_SERVICE_KEY` are set and the app was restarted (or redeployed) after adding them.
