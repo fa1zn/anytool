@@ -1,4 +1,4 @@
-# TinyGen
+# Anytool
 
 A small service that takes a **public GitHub repo URL** and a **code prompt** (e.g. “convert it to TypeScript”, “fix Windows support”) and returns a **unified diff** that implements the change. It uses a two-step LLM workflow: (1) generate the diff, (2) reflection — the model can correct itself and output an updated diff.
 
