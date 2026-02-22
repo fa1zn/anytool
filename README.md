@@ -1,6 +1,35 @@
 # Anytool
 
-A small service that takes a **public GitHub repo URL** and a **code prompt** (e.g. “convert it to TypeScript”, “fix Windows support”) and returns a **unified diff** that implements the change. It uses a two-step LLM workflow: (1) generate the diff, (2) reflection — the model can correct itself and output an updated diff.
+**An API that turns a GitHub repo and a sentence into a unified diff.** You send a repo URL and a natural-language instruction (e.g. “use `dir` on Windows instead of `ls`”, “convert this to TypeScript”); you get back a diff you can apply with `git apply` or feed into any tool that speaks unified diffs. Built with a two-step LLM pipeline: generate the diff, then reflect and optionally correct before returning.
+
+---
+
+## What I built
+
+- A **single API**: `POST /generate-diff` with `repoUrl` and `prompt` → returns `{ "diff": "..." }`.
+- **Two LLM steps**: (1) Generate a unified diff from the repo contents + your prompt. (2) **Reflection** — the model reviews its own diff and can output a corrected version; the API returns that final result.
+- **Repo context** from the GitHub API (no local clone). Optional **Supabase** storage for inputs/outputs. Deployable (e.g. Railway, Render).
+
+So: **instruction in, diff out.** No UI — you call the API from the terminal, from `/docs`, or from another app.
+
+---
+
+## What it solves
+
+**“I know what change I want; I don’t want to hunt for the right file and the right line.”**
+
+You have a repo and a clear intent: “fix Windows support”, “switch to TypeScript”, “add error handling here”. Doing it by hand means opening files, searching, editing, and hoping you didn’t miss a spot. Anytool takes the **intent** and the **repo** and gives you a **concrete diff** — the same format every version-control tool understands. You (or your tooling) can review it, apply it, and iterate. It’s a building block for “describe the change, get the patch.”
+
+---
+
+## Why that problem is a headache
+
+- **Scattered context:** Repos have many files; one logical change often touches several. Figuring out *where* to edit is tedious and error-prone.
+- **Repetition:** Similar changes across files (e.g. “use this pattern everywhere”) are boring and easy to get wrong when done manually.
+- **Intent vs. implementation:** You know *what* you want; translating that into exact edits is the friction. One wrong line can break the build or the behavior.
+- **Tooling expects diffs:** Review flows, CI, and automation work in diffs. Getting from “I want X” to a proper diff usually means doing the edits yourself first. Anytool short-circuits that: you describe X, you get the diff.
+
+---
 
 ## Public API
 
